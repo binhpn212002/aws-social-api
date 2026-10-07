@@ -5,36 +5,35 @@ on:
     workflows: ["CI"]
     types:
       - completed
-      
-      
-  jobs:
-    deploy:
-      if: >
-        github.event.workflow_run.conclusion == 'success' &&
-        github.event.workflow_run.head_branch == 'master'
 
-      runs-on: ubuntu-latest
+jobs:
+  deploy:
+    if: >
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.head_branch == 'master'
 
-      steps:
-        - name: Deploy to VPS
-          uses: appleboy/ssh-action@v1.2.2
-          with:
-            host: ${{ secrets.VPS_HOST }}
-            username: ${{ secrets.VPS_USER }}
-            key: ${{ secrets.VPS_SSH_KEY }}
-            script: |
-              cd ~/www/aws/aws-social-api
+    runs-on: ubuntu-latest
 
-              git fetch origin master
+    steps:
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            cd ~/www/aws/aws-social-api
 
-              git pull origin master
+            git fetch origin master
 
-              npm install
+            git pull origin master
 
-              npm run test
+            npm install
 
-              npm run build
+            npm run test
 
-              pm2 restart aws-social-api
+            npm run build
 
-              pm2 status
+            pm2 restart aws-social-api
+
+            pm2 status
