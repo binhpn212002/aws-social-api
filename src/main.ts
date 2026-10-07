@@ -17,7 +17,7 @@ async function bootstrap() {
   });
   const configService = app.get(ConfigService);
 
-  const apiPrefix = configService.get<string>('app.apiPrefix') ||  'api/v1';
+  const apiPrefix = configService.get<string>('app.apiPrefix') || process.env.API_PREFIX || 'api/v1';
   app.setGlobalPrefix(apiPrefix);
 
   app.useGlobalPipes(
