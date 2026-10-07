@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Client } from 'pg';
 
-const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:3000/api/v1';
+const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:3001/api/v1';
 
 // Database config from .env or defaults
 const dbConfig = {
