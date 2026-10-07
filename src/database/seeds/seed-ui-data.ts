@@ -7,8 +7,8 @@ const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:3000/api/v1';
 const dbConfig = {
   host: process.env.DB_HOST || 'localhost',
   port: parseInt(process.env.DB_PORT || '5432', 10),
-  user: process.env.DB_USERNAME || 'postgres',
-  password: process.env.DB_PASSWORD || 'postgres',
+  user: process.env.DB_USERNAME || 'odoo',
+  password: process.env.DB_PASSWORD || 'odoo',
   database: process.env.DB_DATABASE || 'social_db',
 };
 
