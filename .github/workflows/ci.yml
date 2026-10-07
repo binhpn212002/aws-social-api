@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+
+  pull_request:
+    branches:
+      - master
+      
+      
+  jobs:
+    build:
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+        
+        - name: Set up Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: '22'
+            cache: 'npm'
+
+        - name: Install dependencies
+          run: npm install
+
+        - name: Test
+          run: npm run test
+
+        - name: Build
+          run: npm run build
+          env:
+            API_BASE_URL: ${{ secrets.API_BASE_URL }}
+            DB_USERNAME: ${{ secrets.DB_USERNAME }}
+            DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+            DB_HOST: ${{ secrets.DB_HOST }}
+            DB_PORT: ${{ secrets.DB_PORT }}
+            DB_NAME: ${{ secrets.DB_NAME }}
+            JWT_SECRET: ${{ secrets.JWT_SECRET }}
